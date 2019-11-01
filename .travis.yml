@@ -1,0 +1,9 @@
+sudo: required # ask for superuser
+services:
+  - docker # must be pre-installed
+before_install:
+  # tag only used in travis process
+  - docker build -t eriddle2/docker-react -f Dockerfile.dev .
+script:
+  # travis assumes will exit when done (-- --coverage makes sure it does)
+  - docker run -e CI=true eriddle2/docker-react npm run test -- --coverage
